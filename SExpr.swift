@@ -4,7 +4,14 @@
 //
 //  Created by Trang Do on 10/27/24.
 //
+
+let Nil: SExpr = SExpr.List(items: [])
+let T: SExpr = SExpr.Atom(value: true)
+
 class SExpr {
+    func toString() -> String {
+        ""
+    }
     
     class Atom: SExpr {
         let value: Any?
@@ -24,6 +31,8 @@ class SExpr {
                 return "\"" + val + "\""
             } else if let val = value as? Token {
                 return val.lexeme
+            } else if let val = value as? Bool, val == true {
+                return "T"
             }
             return String(describing: value)
         }
@@ -53,8 +62,5 @@ class SExpr {
             return str
         }
     }
-    
-    func toString() -> String {
-        ""
-    }
 }
+
