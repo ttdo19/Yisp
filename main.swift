@@ -20,3 +20,5 @@ if CommandLine.arguments.count == 2 {
     yisp.runPrompt()
 }
 
+//yisp.testSprint1()
+

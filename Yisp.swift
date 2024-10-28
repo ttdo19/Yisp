@@ -60,6 +60,7 @@ public class Yisp: ErrorReporting{
         for sexpr in sexpressions {
             print(sexpr.toString())
         }
+        
 //        let resolver = Resolver(interpreter: interpreter, errorReporting: self)
 //        resolver.resolve(statements)
 //        if (hadError) { return }
