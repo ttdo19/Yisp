@@ -14,11 +14,11 @@ guard CommandLine.arguments.count < 3 else {
 
 private let yisp = Yisp()
 
-if CommandLine.arguments.count == 2 {
-    yisp.runFile(CommandLine.arguments[1])
-} else {
-    yisp.runPrompt()
-}
+//if CommandLine.arguments.count == 2 {
+//    yisp.runFile(CommandLine.arguments[1])
+//} else {
+//    yisp.runPrompt()
+//}
 
-//yisp.testSprint2()
+yisp.testSprint3()
 

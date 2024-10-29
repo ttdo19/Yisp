@@ -8,11 +8,10 @@
 import Foundation
 
 enum RuntimeError: Error {
-    case mismatchedType(Token, String)
+    case mismatchedType(String)
     case unexpected(String)
     case undefinedVariable(Token, String)
     case notCallable(Token, String)
     case incorrectNumberArguments(Token, String)
     case cannotGetProperty(Token, String)
-    case incorrectSuperclassType(Token, String)
 }
