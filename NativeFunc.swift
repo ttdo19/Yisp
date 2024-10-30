@@ -283,3 +283,6 @@ func caddr (_ sexpr: SExpr) throws -> SExpr {
     return try car(cdr(cdr(sexpr)))
 }
 
+func cadddr (_ sexpr: SExpr) throws -> SExpr {
+    return try car(cdr(cdr(cdr(sexpr))))
+}

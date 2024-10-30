@@ -84,11 +84,11 @@ public class Yisp: ErrorReporting{
     
     func runtimeError(_ runtimeError: RuntimeError) {
         switch runtimeError {
-        case .undefinedVariable(let token, let message): fallthrough
-        case .incorrectNumberArguments(let token, let message): fallthrough
         case .cannotGetProperty(let token, let message): fallthrough
         case .notCallable(let token, let message):
             error(at: token, message: message)
+        case .undefinedVariable(let message): fallthrough
+        case .incorrectNumberArguments(let message): fallthrough
         case .mismatchedType(let message): fallthrough
         case .unexpected(let message):
             print(message)

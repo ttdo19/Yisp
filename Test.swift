@@ -6,7 +6,7 @@
 //
 import Foundation
 
-let input : [String] = [
+let inputSprint4 : [String] = [
     "(+ 2 3)",
     "(/ 6 (+ 2 1))",
     "(* 9 (/ 6 (+ 2 1)))",
@@ -54,12 +54,31 @@ let input : [String] = [
     "(not abc)",
     "(not 1)",
     "(not (eq? 1 1))",
-    
+]
+
+let inputSprint5 = [
+    "(and? (= 1 1) (= 1 2))",
+    "(and? (= 1 1) (= 3 3))",
+    "(and? 1 ())",
+    "(and? 1 10)",
+    "(and? () ())",
+    "(or? 1 1)",
+    "(or? 1 ())",
+    "(or? () ())",
+    "(if (= 1 2) 1 2)",
+    "(if (nil? abc) (+ 2 9) (* 2 9))",
+    "(cond (= 1 2) 1 (= 1 1) 2 (= 29 29) 3)",
+    "(cond (= 1 1) 1 (= 1 1) 2 ('t) 3)",
+    "(set c (cons 12 (cons 13 (cons 14 ()))))",
+    "(cond (eq? (car c) 13) 1 (> 2 5) 3 ('t) 5)",
+    "(cond (eq? (car c) 12) 1 (> 2 5) 3 ('t) 5)",
+    "(and? (eq? (car c) 12) (list? c))",
+    "(if (number? (car c)) (* 10 9) (- 10 9))"
 ]
 
 extension Yisp {
     func testSprint1() {
-        for line in input {
+        for line in inputSprint4 {
             let scanner = Scanner(source: line , errorReporting: self)
             let tokens = scanner.scanTokens()
             
@@ -177,7 +196,24 @@ extension Yisp {
     }
     
     func testSprint4() {
-        for line in input {
+        for line in inputSprint4 {
+            let scanner = Scanner(source: line , errorReporting: self)
+            let tokens = scanner.scanTokens()
+            
+            let parser = Parser(tokens: tokens, errorReporting: self)
+            let sexpressions = parser.parse()
+            guard(!hadError) else {return}
+            
+            for sexpr in sexpressions {
+                print(sexpr.toString())
+            }
+            
+            interpreter.interpret(sexpressions)
+        }
+    }
+    
+    func testSprint5() {
+        for line in inputSprint5 {
             let scanner = Scanner(source: line , errorReporting: self)
             let tokens = scanner.scanTokens()
             
