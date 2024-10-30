@@ -57,17 +57,8 @@ class Parser {
     }
     
     func atom() throws -> SExpr {
-        if match([.number, .string]) {
-            return SExpr.Atom(value: previous().literal)
-        } else if match([.symbol]) {
+        if match([.number, .string, .symbol, .singleQuote]) {
             return SExpr.Atom(value: previous())
-        } else if match([.singleQuote]) {
-            // if it is a single quote, add it to the sexpr as a list where the first element is a quote, the second element is the quoted element
-            var sexpr : [SExpr] = []
-            sexpr.append(SExpr.Atom(value: Token(type: .singleQuote, line: previous().line)))
-            let quotedElement = try sexpression()
-            sexpr.append(quotedElement)
-            return SExpr.List(items: sexpr)
         }
         throw error(token: peek(), message: "Expect atom")
     }

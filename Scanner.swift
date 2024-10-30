@@ -44,7 +44,10 @@ class Scanner {
             addToken(.leftParen)
         case ")":
             addToken(.rightParen)
-        case "-", "+", "*", "=", "<", ">", "/":
+        case "-", "+", "*", "=", "/":
+            addToken(.symbol)
+        case "<", ">":
+            let _ = match("=")
             addToken(.symbol)
         case "\'":
             addToken(.singleQuote)

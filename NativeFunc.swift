@@ -69,30 +69,35 @@ func atom(_ val: String) -> SExpr {
     }
 }
 
-func cons(_ val: SExpr, _ list: SExpr) throws -> SExpr {
+func cons(_ val: SExpr, _ list: SExpr) throws -> List {
     if let list = list as? List {
         let newList = List(items: [val] + list.items)
         return newList
     }
-    throw RuntimeError.unexpected("Can only perform cons between a list and an atom.")
+    throw RuntimeError.unexpected("Can only perform cons between an atom and a list.")
 }
 
-func car(_ sexpr: SExpr) -> SExpr {
+func car(_ sexpr: SExpr) throws -> SExpr {
     if let sexpr = sexpr as? List {
         if sexpr.items.count > 0 {
             return sexpr.items[0]
         }
+        throw RuntimeError.unexpected("Can only perform car on an non-empty list.")
+    } else {
+        throw RuntimeError.unexpected("Can only perform car on a list.")
     }
-    return Nil
 }
 
-func cdr(_ sexpr: SExpr) -> SExpr {
+func cdr(_ sexpr: SExpr) throws -> SExpr {
     if let sexpr = sexpr as? List {
-        if sexpr.items.count > 1 {
+        if sexpr.items.count > 0 {
             return List(items: Array(sexpr.items.dropFirst()))
+        } else {
+            throw RuntimeError.unexpected("Can only perform car on an non-empty list.")
         }
+    } else {
+        throw RuntimeError.unexpected("Can only perform cdr on a list.")
     }
-    return Nil
 }
 
 func getValueFromNumber(_ sexpr: Atom) throws -> Double? {
@@ -259,8 +264,6 @@ func eq(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> SExpr {
         } else if let val1 = sexpr1.value as? Bool, let val2 = sexpr2.value as? Bool  { // compare the constant truth
             return val1 == val2 ? T : Nil
         }
-    } else {
-        throw RuntimeError.mismatchedType("Cannot perform equality check on non-atom types")
     }
     return Nil
 }
@@ -271,3 +274,12 @@ func not (_ sexpr: SExpr) -> SExpr {
     }
     return T
 }
+
+func cadr (_ sexpr: SExpr) throws -> SExpr {
+    return try car(cdr(sexpr))
+}
+
+func caddr (_ sexpr: SExpr) throws -> SExpr {
+    return try car(cdr(cdr(sexpr)))
+}
+

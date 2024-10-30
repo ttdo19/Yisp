@@ -6,7 +6,7 @@
 //
 import Foundation
 
-let inputSprint1 : [String] = [
+let input : [String] = [
     "(+ 2 3)",
     "(/ 6 (+ 2 1))",
     "(* 9 (/ 6 (+ 2 1)))",
@@ -15,12 +15,51 @@ let inputSprint1 : [String] = [
     "(set a 1)",
     "(+ a (- 8 (* 9 (/ 6 (+ 2 1)))))",
     "(set pi 3.14)",
-    "(* pi 3)"
+    "(* pi 3)",
+    "(/ (/ 510 3) 10)",
+    "(eq? 1 1)",
+    "(set c (cons 1 (cons 2 (cons 3 ()))))",
+    "(eq? (car c) (quote 1))",
+    "(= (+ 20 30) 50)",
+    "(= () 1)",
+    "(= () ())",
+    "(= ('a) ('a))",
+    "(set b 10)",
+    "(= b 10)",
+    "(< 10 (+ 7 5))",
+    "(>= 2.89 1.29)",
+    "(<= b 20)",
+    "(> b a)",
+    "(cons 1 (cons 2 (cons 3 ())))",
+    "(car(cons 29 (cons 30 ())))",
+    "(cons (cons 1 (cons 2 (cons 3 ()))) (cons 29 (cons 30 ())))",
+    "(cons () ())",
+    "(cons () (cons () ()))",
+    "(car (cdr (cdr (cdr (cons 1 (cons 2 (cons 3 (cons 4 (cons 5 ())))))))))",
+    "(cdr (cdr (cdr (cdr (cons 1 (cons 2 (cons 3 (cons 4 (cons 5 ())))))))))",
+    "(number? (+ 1 2))",
+    "(number? ())",
+    "(number? (cons 1 (cons 2 (cons 3 ()))))",
+    "(symbol? 289)",
+    "(symbol? abc)",
+    "(symbol? ('abc))",
+    "(list? (cons 1 (cons 2 (cons 3 ()))))",
+    "(list? 123)",
+    "(list? ())",
+    "(nil? ())",
+    "(nil? 123)",
+    "(nil? (cons 1 (cons 2 (cons 3 ()))))",
+    "(not ())",
+    "(not (cons 1 (cons 2 (cons 3 ()))))",
+    "(not abc)",
+    "(not 1)",
+    "(not (eq? 1 1))",
+    
 ]
 
 extension Yisp {
     func testSprint1() {
-        for line in inputSprint1 {
+        for line in input {
             let scanner = Scanner(source: line , errorReporting: self)
             let tokens = scanner.scanTokens()
             
@@ -134,6 +173,23 @@ extension Yisp {
             let unexpectedError = RuntimeError.unexpected("Unexpected runtime error: \(error.localizedDescription)")
             self.runtimeError(unexpectedError)
 
+        }
+    }
+    
+    func testSprint4() {
+        for line in input {
+            let scanner = Scanner(source: line , errorReporting: self)
+            let tokens = scanner.scanTokens()
+            
+            let parser = Parser(tokens: tokens, errorReporting: self)
+            let sexpressions = parser.parse()
+            guard(!hadError) else {return}
+            
+            for sexpr in sexpressions {
+                print(sexpr.toString())
+            }
+            
+            interpreter.interpret(sexpressions)
         }
     }
 }

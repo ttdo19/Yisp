@@ -39,7 +39,7 @@ class SExpr {
         
     }
     class List: SExpr {
-        let items: [SExpr]
+        var items: [SExpr]
         
         init(items: [SExpr]) {
             self.items = items

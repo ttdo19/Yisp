@@ -20,5 +20,8 @@ private let yisp = Yisp()
 //    yisp.runPrompt()
 //}
 
-yisp.testSprint3()
-
+// Run tests
+//yisp.testSprint1()
+//yisp.testSprint2()
+//yisp.testSprint3()
+yisp.testSprint4()

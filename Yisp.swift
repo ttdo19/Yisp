@@ -10,7 +10,7 @@ import Foundation
 public class Yisp: ErrorReporting{
     private(set) var hadError = false
     private(set) var hadRuntimeError = false
-//    private let interpreter: Interpreter
+    let interpreter: Interpreter
     
     public func runFile(_ fileName: String) {
         do {
@@ -30,8 +30,8 @@ public class Yisp: ErrorReporting{
     
     public init(hadError: Bool = false) {
         self.hadError = hadError
-//        self.interpreter = Interpreter()
-//        interpreter.errorReporting = self
+        self.interpreter = Interpreter()
+        interpreter.errorReporting = self
     }
     
     public func runPrompt() {
@@ -57,14 +57,12 @@ public class Yisp: ErrorReporting{
         let sexpressions = parser.parse()
         guard(!hadError) else {return}
         
-        for sexpr in sexpressions {
-            print(sexpr.toString())
-        }
+//        for sexpr in sexpressions {
+//            print(sexpr.toString())
+//        }
+        if (hadError) { return }
         
-//        let resolver = Resolver(interpreter: interpreter, errorReporting: self)
-//        resolver.resolve(statements)
-//        if (hadError) { return }
-//        interpreter.interpret(statements)
+        interpreter.interpret(sexpressions)
     }
     
     func error (_ line: Int, _ message: String){
