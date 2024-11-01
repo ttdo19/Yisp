@@ -38,39 +38,39 @@ swift run -c release Yisp > testingOutput.txt
         - (set name expr)
         - The symbol name is associated with the value of expr. This returns the value of the expr as an acknowledgement that the symbol name has been associated with the value of expr.
 
-    - + (ADD, PLUS) 
+    - ADD (PLUS, +)
         - ( + expr1 expr2 expr3 ... exprN)
         - Returns the sum of expressions. The expressions must be numbers. 
 
-    - - (SUB)
+    - SUB (-)
         - ( - expr1 expr2 expr3 ... exprN)
         - Returns the expr1 - expr2 - expr3 - ... - exprN. The expressions must be numbers. 
 
-    - \* (MUL)
+    - MUL (*)
         - ( \* expr1 expr2 expr3 ... exprN)
         - Returns the product of expressions. The expressions must be numbers. 
 
-    - / (DIV)
+    - DIV (/)
         - ( / expr1 expr2 expr3 ... exprN)
         - Returns the expr1 / expr2 / expr3 / ... / exprN. The expressions must be numbers. 
 
-    - = (EQ?)
+    - EQ? (=)
         - (= expr1 expr2)
         - Compares the values of two atoms. Returns () when either expression is a larger list.
 
-    - < (LT)
+    - LT (<)
         - (< expr1 expr2)
         - Return T when expr1 is less than expr2. Expr1 and expr2 must be numbers.
 
-    - > (GT) 
+    - GT (>)
         - (> expr1 expr2)
         - Return T when expr1 is greater than expr2. Expr1 and expr2 must be numbers.
 
-    - <= (LTE)
+    - LTE (<=)
         - (<= expr1 expr2)
         - Return T when expr1 is less than or equal to expr2. Expr1 and expr2 must be numbers.
 
-    - >= (GTE) 
+    - GTE (>=)
         - (>= expr1 expr2)
         - Return T when expr1 is greater than or equal to expr2. Expr1 and expr2 must be numbers.
 
