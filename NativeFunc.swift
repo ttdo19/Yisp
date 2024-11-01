@@ -127,56 +127,68 @@ func isInt(_ num: Double) -> Bool {
     return false
 }
 
-func add(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> Any {
-    if let sexpr1 = sexpr1 as? Atom, let sexpr2 = sexpr2 as? Atom {
-        let val1 = try getValueFromNumber(sexpr1)
-        let val2 = try getValueFromNumber(sexpr2)
-        if let val1 = val1, let val2 = val2{
-            let result = val1 + val2
-            return isInt(result) ? Int(result) : result
+func add(_ sexprs: List) throws -> Any {
+    var result = 0.0
+    for index in stride(from: 0, to: sexprs.items.count, by: 1) {
+        if let sexpr = sexprs.items[index] as? Atom {
+            if let val = try getValueFromNumber(sexpr) {
+                result += val
+            } else {
+                throw RuntimeError.unexpected("Can only perform addition operation between numbers.")
+            }
         }
     }
-    throw RuntimeError.unexpected("Can only perform addition operation between numbers.")
+    return isInt(result) ? Int(result) : result
 }
 
-func sub(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> Any {
-    if let sexpr1 = sexpr1 as? Atom, let sexpr2 = sexpr2 as? Atom {
-        let val1 = try getValueFromNumber(sexpr1)
-        let val2 = try getValueFromNumber(sexpr2)
-        if let val1 = val1, let val2 = val2{
-            let result = val1 - val2
-            return isInt(result) ? Int(result) : result
+func sub(_ sexprs: List) throws -> Any {
+    if let firstNum = sexprs.items.first as? Atom, var result = try getValueFromNumber(firstNum) {
+        for index in stride(from: 1, to: sexprs.items.count, by: 1) {
+            if let sexpr = sexprs.items[index] as? Atom {
+                if let val = try getValueFromNumber(sexpr) {
+                    result -= val
+                } else {
+                    throw RuntimeError.unexpected("Can only perform subtraction operation between numbers.")
+                }
+            }
         }
+        return isInt(result) ? Int(result) : result
     }
     throw RuntimeError.unexpected("Can only perform subtraction operation between numbers.")
 }
 
-func mul(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> Any {
-    if let sexpr1 = sexpr1 as? Atom, let sexpr2 = sexpr2 as? Atom {
-        let val1 = try getValueFromNumber(sexpr1)
-        let val2 = try getValueFromNumber(sexpr2)
-        if let val1 = val1, let val2 = val2{
-            let result = val1 * val2
-            return isInt(result) ? Int(result) : result
-        }
-    }
-    throw RuntimeError.unexpected("Can only perform multiplication operation between numbers.")
-}
-
-func div(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> Any {
-    if let sexpr1 = sexpr1 as? Atom, let sexpr2 = sexpr2 as? Atom {
-        let val1 = try getValueFromNumber(sexpr1)
-        let val2 = try getValueFromNumber(sexpr2)
-        if let val1 = val1, let val2 = val2{
-            if val2 != 0 {
-                let result = val1 / val2
-                return isInt(result) ? Int(result) : result
+func mul(_ sexprs: List) throws -> Any {
+    var result = 1.0
+    for index in stride(from: 0, to: sexprs.items.count, by: 1) {
+        if let sexpr = sexprs.items[index] as? Atom {
+            if let val = try getValueFromNumber(sexpr) {
+                result *= val
             } else {
-                throw RuntimeError.unexpected("Division by zero is not allowed.")
+                throw RuntimeError.unexpected("Can only perform multiplication operation between numbers.")
             }
         }
     }
-    throw RuntimeError.unexpected("Can only perform division operation between numbers.")
+    return isInt(result) ? Int(result) : result
+}
+
+func div(_ sexprs: List) throws -> Any {
+    if let firstNum = sexprs.items.first as? Atom, var result = try getValueFromNumber(firstNum) {
+        for index in stride(from: 1, to: sexprs.items.count, by: 1) {
+            if let sexpr = sexprs.items[index] as? Atom {
+                if let val = try getValueFromNumber(sexpr) {
+                    if val != 0 {
+                        result /= val
+                    } else {
+                        throw RuntimeError.unexpected("Division by zero is not allowed.")
+                    }
+                } else {
+                    throw RuntimeError.unexpected("Can only perform division operation between numbers.")
+                }
+            }
+        }
+        return isInt(result) ? Int(result) : result
+    }
+    throw RuntimeError.unexpected("Can only perform subtraction operation between numbers.")
 }
 
 func mod(_ sexpr1: SExpr, _ sexpr2: SExpr) throws -> Int {

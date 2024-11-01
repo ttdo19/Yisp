@@ -11,7 +11,5 @@ enum RuntimeError: Error {
     case mismatchedType(String)
     case unexpected(String)
     case undefinedVariable(String)
-    case notCallable(Token, String)
     case incorrectNumberArguments(String)
-    case cannotGetProperty(Token, String)
 }
