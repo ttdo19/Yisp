@@ -27,13 +27,13 @@ Another way to run the test for the six sprints is by going to the main.swift fi
 
 ## Supported Commands / Builtin names (not case sensitive)
 
-** Required **
+* Required *
 
-* SET 
-(set name expr)
-The symbol name is associated with the value of expr. This returns the value of the expr as an acknowledgement that the symbol name has been associated with the value of expr.
+    - SET
+        - (set name expr)
+        - The symbol name is associated with the value of expr. This returns the value of the expr as an acknowledgement that the symbol name has been associated with the value of expr.
 
-* + (ADD, PLUS)
+* + (ADD, PLUS) *
 ( + expr1 expr2 expr3 ... exprN)
 Returns the sum of expressions. The expressions must be numbers. 
 
