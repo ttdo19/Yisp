@@ -8,12 +8,12 @@
 let Nil: SExpr = SExpr.List(items: [])
 let T: SExpr = SExpr.Atom(value: true)
 
-class SExpr {
+class SExpr: @unchecked Sendable {
     func toString() -> String {
         ""
     }
     
-    class Atom: SExpr {
+    class Atom: SExpr, @unchecked Sendable {
         let value: Any?
         
         init(value: Any?) {
@@ -38,7 +38,7 @@ class SExpr {
         }
         
     }
-    class List: SExpr {
+    class List: SExpr, @unchecked Sendable {
         var items: [SExpr]
         
         init(items: [SExpr]) {

@@ -6,8 +6,8 @@
 //
 import Foundation
 
-let inputSprint4 : [String] = [
-    // test cases for operators: eq? (or =), +, -, *, /, mod, <, <=, >=, >, '
+let inputSprint1And4 : [String] = [
+    // test cases for commands: eq? (or =), +, -, *, /, mod, <, <=, >=, >, '
     "(eq? 5 (+ 2 3))",
     "(eq? 2 (/ 6 (+ 2 1)))",
     "(eq? 18 (* 9 (/ 6 (+ 2 1))))",
@@ -177,7 +177,7 @@ let inputforChallenges = [
 extension Yisp {
     func testSprint1() {
         print("Sprint 1 Testing")
-        for line in inputSprint4 {
+        for line in inputSprint1And4 {
             let scanner = Scanner(source: line , errorReporting: self)
             let tokens = scanner.scanTokens()
             
@@ -443,7 +443,7 @@ extension Yisp {
     
     func testSprint4() {
         print("Sprint 4 Testing")
-        runTest(input: inputSprint4)
+        runTest(input: inputSprint1And4)
         print()
     }
     

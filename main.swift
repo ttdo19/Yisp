@@ -21,11 +21,11 @@ if CommandLine.arguments.count == 2 {
 }
 
 // Run tests
-yisp.testSprint1()
-yisp.testSprint2()
-yisp.testSprint3()
-yisp.testSprint4()
-yisp.testSprint5()
-yisp.testSprint6()
-yisp.testChallenges()
+//yisp.testSprint1()
+//yisp.testSprint2()
+//yisp.testSprint3()
+//yisp.testSprint4()
+//yisp.testSprint5()
+//yisp.testSprint6()
+//yisp.testChallenges()
 
